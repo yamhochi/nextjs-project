@@ -15,7 +15,6 @@ type Post = {
 
 
 export default function PostPage({ post }: { post: Post }) {
-  console.log(post.author.name)
   return (
     <div>
       <main style={{ margin: '3rem' }}>
