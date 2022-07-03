@@ -26,7 +26,6 @@ export default function PostPage({ post }: { post: Post }) {
         <h1>{post.title}</h1>
         <p>{post.content}</p>
         <p>{post.author.name}</p>
-        <p>Xxxx</p>
       </main>
     </div>
   );
