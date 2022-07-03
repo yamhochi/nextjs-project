@@ -11,9 +11,20 @@ generator client {
   output   = "node_modules/.prisma/client"
 }
 
+model User {
+  id    String @id @default(cuid())
+  name  String @default("")
+  email String @unique @default("")
+  posts Post[] @relation("Post_author")
+}
+
 model Post {
-  id      String @id @default(cuid())
-  title   String @default("")
-  slug    String @unique @default("")
-  content String @default("")
+  id       String  @id @default(cuid())
+  title    String  @default("")
+  slug     String  @unique @default("")
+  content  String  @default("")
+  author   User?   @relation("Post_author", fields: [authorId], references: [id])
+  authorId String? @map("author")
+
+  @@index([authorId])
 }

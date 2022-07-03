@@ -10,9 +10,12 @@ type Post = {
   id: string;
   title: string;
   content: string;
-};
+  author: string;
+}
+
 
 export default function PostPage({ post }: { post: Post }) {
+  console.log(post.author.name)
   return (
     <div>
       <main style={{ margin: '3rem' }}>
@@ -23,6 +26,8 @@ export default function PostPage({ post }: { post: Post }) {
         </div>
         <h1>{post.title}</h1>
         <p>{post.content}</p>
+        <p>{post.author.name}</p>
+        <p>Xxxx</p>
       </main>
     </div>
   );
@@ -46,10 +51,11 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult> {
 export async function getStaticProps({ params }: GetStaticPropsContext) {
   const post = (await query.Post.findOne({
     where: { slug: params!.slug as string },
-    query: 'id title content',
+    query: 'id title content author{name}',
   })) as Post | null;
   if (!post) {
     return { notFound: true };
   }
   return { props: { post } };
 }
+
